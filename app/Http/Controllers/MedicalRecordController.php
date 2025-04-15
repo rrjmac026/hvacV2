@@ -11,8 +11,18 @@ class MedicalRecordController extends Controller
 {
     public function index()
     {
-        $medicalRecords = MedicalRecord::with('pet')->paginate(10);
-        return view('medical_records.index', compact('medicalRecords'));
+        $records = MedicalRecord::with(['pet.client'])
+            ->when(request('search'), function($query, $search) {
+                $query->whereHas('pet', function($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                })
+                ->orWhere('diagnosis', 'like', "%{$search}%")
+                ->orWhere('treatment', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
+
+        return view('medical_records.index', compact('records'));
     }
 
     public function create()

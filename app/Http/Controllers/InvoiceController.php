@@ -12,7 +12,16 @@ class InvoiceController extends Controller
     // Display a listing of invoices
     public function index()
     {
-        $invoices = Invoice::all();
+        $invoices = Invoice::with('client')
+            ->when(request('search'), function($query, $search) {
+                $query->where('invoice_number', 'like', "%{$search}%")
+                    ->orWhereHas('client', function($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    });
+            })
+            ->latest()
+            ->paginate(10);
+
         return view('invoices.index', compact('invoices'));
     }
 

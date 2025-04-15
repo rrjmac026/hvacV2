@@ -31,7 +31,6 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Format</label>
                                 <select name="format" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700">
-                                    <option value="json">JSON</option>
                                     <option value="pdf">PDF</option>
                                 </select>
                             </div>

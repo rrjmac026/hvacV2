@@ -1,71 +1,125 @@
-
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-2xl text-emerald-800 dark:text-emerald-200 leading-tight">
-                {{ __('Medical Records') }}
-            </h2>
-            <a href="{{ route('medical_records.create') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-full font-medium transition duration-300 ease-in-out flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                </svg>
-                <span>New Medical Record</span>
-            </a>
-        </div>
-    </x-slot>
-
-    <div class="py-12 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if(session('success'))
-                <div class="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-sm dark:bg-green-900 dark:text-green-200" role="alert">
-                    <p class="font-medium">{{ session('success') }}</p>
+    <div class="py-6 px-4 sm:px-6 lg:px-8 bg-vet-light-bg dark:bg-vet-dark-bg min-h-screen">
+        <!-- Page Header -->
+        <div class="mb-6 bg-vet-light-card dark:bg-vet-dark-card rounded-lg shadow-vet p-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-file-medical text-2xl text-vet-primary-500 mr-3"></i>
+                    <div>
+                        <h2 class="text-2xl font-bold text-vet-light-text-primary dark:text-white">Medical Records</h2>
+                        <p class="text-sm text-vet-light-text-secondary">Manage patient medical histories and treatments</p>
+                    </div>
                 </div>
-            @endif
+                <a href="{{ route('medical_records.create') }}" 
+                   class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-vet-primary-500 to-vet-primary-600 hover:from-vet-primary-600 hover:to-vet-primary-700 text-white text-sm font-medium rounded-lg shadow-vet transition-all duration-150">
+                    <i class="fas fa-plus-circle mr-2"></i>
+                    New Record
+                </a>
+            </div>
+        </div>
 
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl rounded-lg">
-                <div class="p-6">
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead class="bg-gray-50 dark:bg-gray-700">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Record ID</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Pet Name</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Owner</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Date</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                @foreach($medicalRecords as $record)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">#{{ $record->id }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ $record->pet->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ $record->pet->client->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ $record->date->format('M d, Y') }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <div class="flex space-x-3">
-                                                <a href="{{ route('medical_records.show', $record->id) }}" class="text-emerald-600 hover:text-emerald-900 dark:text-emerald-400 dark:hover:text-emerald-300">View</a>
-                                                <a href="{{ route('medical_records.edit', $record->id) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit</a>
+        <!-- Main Content -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <!-- Search and Filter Section -->
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <form action="{{ route('medical_records.index') }}" method="GET" class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input type="text" name="search" value="{{ request('search') }}" 
+                            placeholder="Search medical records..." 
+                            class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-vet-primary-500 focus:ring-vet-primary-500">
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="submit" 
+                            class="inline-flex items-center px-4 py-2 bg-vet-primary-500 hover:bg-vet-primary-600 text-white rounded-lg transition-colors duration-150">
+                            <i class="fas fa-search mr-2"></i>
+                            Search
+                        </button>
+                        <a href="{{ route('medical_records.index') }}" 
+                            class="inline-flex items-center px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors duration-150">
+                            <i class="fas fa-redo mr-2"></i>
+                            Reset
+                        </a>
+                    </div>
+                </form>
+            </div>
 
-                                                <!-- Delete Button -->
-                                                <form action="{{ route('medical_records.destroy', $record->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this record?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                        Delete
-                                                    </button>
-                                                </form>
+            <!-- Records List -->
+            <div class="p-4">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-800">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Pet</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Diagnosis</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            @forelse($records as $record)
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                @if($record->pet->photo)
+                                                    <img class="h-10 w-10 rounded-full object-cover" src="{{ Storage::url($record->pet->photo) }}" alt="">
+                                                @else
+                                                    <div class="h-10 w-10 rounded-full bg-vet-primary-100 dark:bg-vet-primary-800 flex items-center justify-center">
+                                                        <i class="fas fa-paw text-vet-primary-500"></i>
+                                                    </div>
+                                                @endif
                                             </div>
-                                        </td>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900 dark:text-white">{{ $record->pet->name }}</div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">{{ $record->pet->species }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900 dark:text-white">{{ $record->diagnosis }}</div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">{{ Str::limit($record->treatment, 50) }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                        {{ $record->date->format('M d, Y') }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            {{ $record->status }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="flex justify-end space-x-2">
+                                            <a href="{{ route('medical_records.show', $record) }}" class="text-vet-primary-600 hover:text-vet-primary-900">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('medical_records.edit', $record) }}" class="text-blue-600 hover:text-blue-900">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('medical_records.destroy', $record) }}" method="POST" class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                                        No medical records found. Create a new record to get started!
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="mt-4">
-                        {{ $medicalRecords->links() }}
-                    </div>
+                <!-- Pagination -->
+                <div class="mt-6">
+                    {{ $records->links() }}
                 </div>
             </div>
         </div>

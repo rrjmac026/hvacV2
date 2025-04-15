@@ -4,8 +4,6 @@ import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
-Alpine.start();
-
 // Improved dark mode functionality
 window.toggleDarkMode = function() {
     const root = document.documentElement;
@@ -41,3 +39,5 @@ document.addEventListener('alpine:init', () => {
         }
     });
 });
+
+Alpine.start();
