@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark mode transition */
+.transitioning * {
+    transition: background-color 200ms ease-in-out,
+                border-color 200ms ease-in-out,
+                color 200ms ease-in-out;
+}
+
+/* Base styles */
+@layer base {
+    body {
+        @apply bg-vet-light-bg dark:bg-vet-dark-bg;
+        @apply text-vet-light-text-primary dark:text-vet-dark-text-primary;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-heading;
+    }
+    
+    h1 { @apply text-3xl font-bold; }
+    h2 { @apply text-2xl font-semibold; }
+    h3 { @apply text-xl font-semibold; }
+    
+    .nav-link {
+        @apply font-medium tracking-wide;
+    }
+    
+    .btn-text {
+        @apply font-medium tracking-wide;
+    }
+}
+
+/* Card styles */
+@layer components {
+    .page-header {
+        @apply bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700;
+    }
+    
+    .page-container {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .card {
+        @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700;
+    }
+}
