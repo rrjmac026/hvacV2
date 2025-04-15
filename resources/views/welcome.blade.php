@@ -50,10 +50,10 @@ use Illuminate\Support\Facades\Route;
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-vet-light-text-primary dark:text-white leading-tight">
-                            Modern Veterinary Management System
+                            Highland Veterinary<br>Animal Clinic
                         </h1>
                         <p class="mt-4 text-xl text-vet-light-text-secondary dark:text-gray-300">
-                            Streamline your veterinary practice with our comprehensive management solution.
+                            Providing comprehensive veterinary care with compassion and expertise
                         </p>
                         <div class="mt-8 flex gap-4">
                             <a href="{{ route('register') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-vet-primary-500 to-vet-primary-600 text-base text-white font-medium rounded-lg hover:from-vet-primary-600 hover:to-vet-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-vet-primary-500 transition-all duration-150 transform hover:scale-105">
@@ -118,7 +118,7 @@ use Illuminate\Support\Facades\Route;
         <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                 <div class="text-center text-gray-500 dark:text-gray-400 text-sm">
-                    &copy; {{ date('Y') }} VetCare. All rights reserved.
+                    &copy; {{ date('Y') }} Highland Veterinary Animal Clinic. All rights reserved.
                 </div>
             </div>
         </footer>

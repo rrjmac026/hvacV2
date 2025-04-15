@@ -55,11 +55,18 @@
             <!-- Recent Activity -->
             <div class="bg-vet-light-card dark:bg-vet-dark-card rounded-lg shadow-lg">
                 <div class="p-6">
-                    <h3 class="text-lg leading-6 font-medium text-vet-light-text-primary dark:text-white flex items-center">
-                        <i class="fas fa-history text-vet-primary-500 mr-2"></i>
-                        Recent Activity
-                    </h3>
-                    <x-activity-feed :activities="$activities" />
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg leading-6 font-medium text-vet-light-text-primary dark:text-white flex items-center">
+                            <i class="fas fa-history text-vet-primary-500 mr-2"></i>
+                            Recent Activity
+                        </h3>
+                        <a href="{{ route('activities.index') }}" 
+                           class="text-sm text-vet-primary-600 hover:text-vet-primary-700 dark:text-vet-primary-400 flex items-center">
+                            View All
+                            <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                    <x-activity-feed :activities="$activities->take(2)" />
                 </div>
             </div>
 

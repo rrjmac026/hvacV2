@@ -19,6 +19,7 @@
                 ['route' => 'visits.index', 'icon' => 'fas fa-clipboard', 'label' => 'Visits'],
                 ['route' => 'medical_records.index', 'icon' => 'fas fa-file-medical', 'label' => 'Medical Records'],
                 ['route' => 'invoices.index', 'icon' => 'fas fa-file-invoice', 'label' => 'Invoices'],
+                ['route' => 'products.index', 'icon' => 'fas fa-box', 'label' => 'Products'], // Added Products
                 ['route' => 'activities.index', 'icon' => 'fas fa-history', 'label' => 'Activity Log'],
                 ['route' => 'reports.index', 'icon' => 'fas fa-chart-bar', 'label' => 'Reports']
             ] as $item)
@@ -32,23 +33,6 @@
                 </a>
             @endforeach
         </nav>
-
-        <!-- Dark Mode Toggle -->
-        <div class="px-4 py-4 border-t border-gray-200 dark:border-gray-700">
-            <button x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }"
-                @click="darkMode = !darkMode; 
-                    localStorage.theme = darkMode ? 'dark' : 'light';
-                    if (localStorage.theme === 'dark') {
-                        document.documentElement.classList.add('dark')
-                    } else {
-                        document.documentElement.classList.remove('dark')
-                    }"
-                class="flex items-center w-full px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
-                <i x-show="darkMode" class="fas fa-sun w-5"></i>
-                <i x-show="!darkMode" class="fas fa-moon w-5"></i>
-                <span class="ml-3" x-text="darkMode ? 'Light Mode' : 'Dark Mode'"></span>
-            </button>
-        </div>
 
         <!-- Version Info -->
         <div class="absolute bottom-0 left-0 right-0 p-4">

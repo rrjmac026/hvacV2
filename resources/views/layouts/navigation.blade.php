@@ -13,12 +13,10 @@ use Illuminate\Support\Facades\Auth;
             
             <!-- Logo -->
             <div class="flex items-center">
-                <div class="w-10 h-10 bg-gradient-to-br from-vet-primary-500 to-vet-primary-600 rounded-xl shadow-lg flex items-center justify-center transform hover:rotate-3 transition-all duration-200">
-                    <i class="fas fa-paw text-xl text-white"></i>
+                <div class="w-8 h-8 bg-gradient-to-br from-vet-primary-500 to-vet-primary-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-paw text-white"></i>
                 </div>
-                <span class="ml-3 text-xl font-bold bg-gradient-to-r from-vet-primary-600 to-vet-primary-500 bg-clip-text text-transparent">
-                    VetCare
-                </span>
+                <span class="ml-3 text-xl font-bold text-vet-primary-600 dark:text-vet-primary-400">HVAC</span>
             </div>
         </div>
 
@@ -47,6 +45,21 @@ use Illuminate\Support\Facades\Auth;
                     <i class="fas fa-user-circle text-vet-primary-500"></i>
                     Profile Settings
                 </a>
+
+                <!-- Dark Mode Toggle -->
+                <button x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }"
+                    @click="darkMode = !darkMode;
+                    localStorage.theme = darkMode ? 'dark' : 'light';
+                    document.documentElement.classList.toggle('dark')"
+                    class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <template x-if="darkMode">
+                        <i class="fas fa-sun mr-2"></i>
+                    </template>
+                    <template x-if="!darkMode">
+                        <i class="fas fa-moon mr-2"></i>
+                    </template>
+                    <span x-text="darkMode ? 'Light Mode' : 'Dark Mode'"></span>
+                </button>
 
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
