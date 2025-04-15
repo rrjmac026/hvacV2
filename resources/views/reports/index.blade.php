@@ -8,7 +8,7 @@
                     
                     <form id="reportForm" method="POST" action="{{ route('reports.generate') }}" class="space-y-4">
                         @csrf
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Report Type</label>
                                 <select name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700">
@@ -27,23 +27,15 @@
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">End Date</label>
                                 <input type="date" name="end_date" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700">
                             </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Format</label>
-                                <select name="format" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700">
-                                    <option value="pdf">PDF</option>
-                                </select>
-                            </div>
                         </div>
 
                         <div class="flex justify-end space-x-3">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                </svg>
-                                Generate Report
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-vet-primary-500 hover:bg-vet-primary-600 text-white rounded-lg transition-colors duration-150">
+                                <i class="fas fa-file-pdf mr-2"></i>
+                                Generate PDF Report
                             </button>
                         </div>
+                        <input type="hidden" name="format" value="pdf">
                     </form>
                 </div>
             </div>
