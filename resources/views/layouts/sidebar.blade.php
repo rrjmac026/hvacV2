@@ -19,7 +19,8 @@
                 ['route' => 'visits.index', 'icon' => 'fas fa-clipboard', 'label' => 'Visits'],
                 ['route' => 'medical_records.index', 'icon' => 'fas fa-file-medical', 'label' => 'Medical Records'],
                 ['route' => 'invoices.index', 'icon' => 'fas fa-file-invoice', 'label' => 'Invoices'],
-                ['route' => 'products.index', 'icon' => 'fas fa-box', 'label' => 'Products'], // Added Products
+                ['route' => 'inventory.index', 'icon' => 'fas fa-boxes', 'label' => 'Inventory'],
+                ['route' => 'products.index', 'icon' => 'fas fa-box', 'label' => 'Products'],
                 ['route' => 'activities.index', 'icon' => 'fas fa-history', 'label' => 'Activity Log'],
                 ['route' => 'reports.index', 'icon' => 'fas fa-chart-bar', 'label' => 'Reports']
             ] as $item)
@@ -39,7 +40,7 @@
             <div class="p-4 rounded-xl bg-gradient-to-r from-vet-primary-500 to-vet-primary-600 text-white shadow-lg">
                 <div class="flex items-center justify-center gap-2">
                     <i class="fas fa-info-circle"></i>
-                    <span class="text-sm font-medium">VetCare v1.0</span>
+                    <span class="text-sm font-medium">HVAC v1.0</span>
                 </div>
             </div>
         </div>

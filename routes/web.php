@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InventoryController;
 
 // Public Routes
 Route::get('/', function () {
@@ -35,14 +36,15 @@ Route::middleware('auth')->group(function () {
 // Admin Resource Routes
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('clients', ClientController::class);
-    Route::resource('invoices', InvoiceController::class);
-    Route::resource('medical_records', MedicalRecordController::class);
-    Route::resource('payments', PaymentController::class);
     Route::resource('pets', PetController::class);
-    Route::resource('vaccinations', VaccinationController::class);
-    Route::resource('visits', VisitController::class);
     Route::resource('appointments', AppointmentController::class);
+    Route::resource('invoices', InvoiceController::class);
+    Route::resource('visits', VisitController::class);
+    Route::resource('medical_records', MedicalRecordController::class);
+    Route::resource('inventory', InventoryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('activities', ActivityController::class);
+    Route::resource('reports', ReportController::class);
     
     // Reports Routes
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');

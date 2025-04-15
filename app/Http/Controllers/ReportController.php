@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Client, Pet, Appointment, Invoice, Visit, MedicalRecord, Product, Activity};
+use App\Models\{Client, Pet, Appointment, Invoice, Visit, MedicalRecord, Product, Activity, Inventory};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -20,6 +20,7 @@ class ReportController extends Controller
         'visits' => Visit::class,
         'medical_records' => MedicalRecord::class,
         'products' => Product::class,
+        'inventory' => Inventory::class,
         'activities' => Activity::class,
     ];
 
@@ -106,6 +107,7 @@ class ReportController extends Controller
             'visits' => ['client', 'pet'],
             'medical_records' => ['pet.client'],
             'invoices' => ['client'],
+            'inventory' => ['product'],
             default => []
         };
     }
@@ -164,6 +166,17 @@ class ReportController extends Controller
                 'Price' => number_format($item->price, 2),
                 'Stock' => $item->stock,
                 'Created' => $item->created_at->format('M d, Y')
+            ],
+            'inventory' => [
+                'ID' => $item->id,
+                'Product' => $item->product->name,
+                'Quantity' => $item->quantity,
+                'Unit Cost' => '₱' . number_format($item->unit_cost, 2),
+                'Total Value' => '₱' . number_format($item->quantity * $item->unit_cost, 2),
+                'Status' => ucwords(str_replace('_', ' ', $item->status)),
+                'Batch Number' => $item->batch_number ?? 'N/A',
+                'Expiry Date' => $item->expiry_date ? $item->expiry_date->format('M d, Y') : 'N/A',
+                'Supplier' => $item->supplier ?? 'N/A'
             ],
             'activities' => [
                 'ID' => $item->id,
