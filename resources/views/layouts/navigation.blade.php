@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Auth;
             
             <!-- Logo -->
             <div class="flex items-center">
-                <div class="w-8 h-8 bg-gradient-to-br from-vet-primary-500 to-vet-primary-600 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-paw text-white"></i>
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="{{ asset('images/hero.jpg') }}" alt="HVAC Logo" class="h-8 w-8 rounded-lg object-cover">
+                    <span class="ml-3 text-xl font-bold text-vet-primary-600 dark:text-vet-primary-400">HVAC</span>
                 </div>
-                <span class="ml-3 text-xl font-bold text-vet-primary-600 dark:text-vet-primary-400">HVAC</span>
             </div>
         </div>
 

@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Route;
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-vet-light-text-primary dark:text-white leading-tight">
-                            Highland Veterinary<br>Animal Clinic
+                            Highland Vets<br>Animal Clinic
                         </h1>
                         <p class="mt-4 text-xl text-vet-light-text-secondary dark:text-gray-300">
                             Providing comprehensive veterinary care with compassion and expertise

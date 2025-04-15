@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Client, Pet, Appointment, Invoice, Visit, MedicalRecord};
+use App\Models\{Client, Pet, Appointment, Invoice, Visit, MedicalRecord, Product, Activity};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use PDF;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -18,6 +19,8 @@ class ReportController extends Controller
         'invoices' => Invoice::class,
         'visits' => Visit::class,
         'medical_records' => MedicalRecord::class,
+        'products' => Product::class,
+        'activities' => Activity::class,
     ];
 
     public function index()
@@ -153,6 +156,22 @@ class ReportController extends Controller
                 'Treatment' => $item->treatment,
                 'Notes' => $item->notes
             ],
+            'products' => [
+                'ID' => $item->id,
+                'Name' => $item->name,
+                'Category' => $item->category ?? 'Uncategorized',
+                'Description' => Str::limit($item->description, 50),
+                'Price' => number_format($item->price, 2),
+                'Stock' => $item->stock,
+                'Created' => $item->created_at->format('M d, Y')
+            ],
+            'activities' => [
+                'ID' => $item->id,
+                'Type' => ucfirst($item->type),
+                'Description' => $item->description,
+                'User' => $item->user ? $item->user->name : 'System',
+                'Date' => $item->created_at->format('M d, Y h:i A')
+            ],
             default => $item->toArray()
         };
     }
@@ -164,6 +183,9 @@ class ReportController extends Controller
 
         $options = new Options();
         $options->set('defaultFont', 'Arial');
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
         
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('reports.pdf', [
