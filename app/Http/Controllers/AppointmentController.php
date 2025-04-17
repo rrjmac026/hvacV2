@@ -11,15 +11,20 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::with(['client', 'pet'])->paginate(10);
+        $appointments = Appointment::with(['client', 'pet'])
+            ->latest('appointment_date')
+            ->paginate(10);
+        
         return view('appointments.index', compact('appointments'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $defaultDate = $request->query('date', now());
         $clients = Client::all();
         $pets = Pet::all();
-        return view('appointments.create', compact('clients', 'pets'));
+        
+        return view('appointments.create', compact('clients', 'pets', 'defaultDate'));
     }
 
     public function store(Request $request)

@@ -15,6 +15,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\CalendarController;
 
 // Public Routes
 Route::get('/', function () {
@@ -49,6 +50,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Reports Routes
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::any('/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
+
+    // Calendar Routes
+    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::patch('/appointments/{appointment}', [CalendarController::class, 'update']);
 });
 
 // Activity Log Routes

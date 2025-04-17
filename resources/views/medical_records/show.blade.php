@@ -1,3 +1,6 @@
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
 
 <x-app-layout>
     <x-slot name="header">

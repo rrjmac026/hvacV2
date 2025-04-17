@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@fullcalendar/core/main.css";
+@import "@fullcalendar/daygrid/main.css";
+
 /* Dark mode transition */
 .transitioning * {
     transition: background-color 200ms ease-in-out,

@@ -11,7 +11,10 @@ class VisitController extends Controller
 {
     public function index()
     {
-        $visits = Visit::with(['client', 'pet', 'appointment'])->get();
+        $visits = Visit::with(['client', 'pet'])
+            ->latest('visit_date')
+            ->paginate(10);
+        
         return view('visits.index', compact('visits'));
     }
 

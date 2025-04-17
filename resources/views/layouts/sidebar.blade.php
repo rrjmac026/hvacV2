@@ -13,6 +13,7 @@
         <nav class="flex-1 px-4 py-4 space-y-2">
             @foreach([
                 ['route' => 'dashboard', 'icon' => 'fas fa-tachometer-alt', 'label' => 'Dashboard'],
+                ['route' => 'calendar.index', 'icon' => 'fas fa-calendar-alt', 'label' => 'Calendar'],
                 ['route' => 'clients.index', 'icon' => 'fas fa-users', 'label' => 'Clients'],
                 ['route' => 'pets.index', 'icon' => 'fas fa-paw', 'label' => 'Pets'],
                 ['route' => 'appointments.index', 'icon' => 'fas fa-calendar', 'label' => 'Appointments'],

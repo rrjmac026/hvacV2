@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
